@@ -1,0 +1,3 @@
+#!/bin/bah
+printf "%.2f
+" $NUM
