@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#Script using while loop to print 12 hour hours and minutes
+
+hrs=0
+mins=1
+while (( hrs <= 12 ));
+do
+	mins=1
+	echo "Hour: $hrs"
+	while (( mins <= 59 ));
+	do
+		echo "$mins"
+		((mins++))
+	done
+	((hrs++))
+done
