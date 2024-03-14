@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Thsi script shows all attached ipv4 IPs
+
+ip addr show | awk '/inet /{print$2}'
