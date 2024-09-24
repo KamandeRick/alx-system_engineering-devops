@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module to query reddit for nsub count in a sub reddit
+Module to query reddit for sub count in a sub reddit
 """
 import requests
 
@@ -18,6 +18,3 @@ def number_of_subscribers(subreddit):
                             headers=header,
                             allow_redirects=False
                             )
-    if response.status_code == 200:
-        return response.json()['data']['subscribers']
-    return 0
