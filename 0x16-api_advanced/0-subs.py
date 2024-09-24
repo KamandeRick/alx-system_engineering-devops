@@ -1,25 +1,23 @@
 #!/usr/bin/python3
-"""Querying reddit for number of subs in a subreddit"""
-
+"""
+Module to query reddit for nsub count in a sub reddit
+"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """query a subreddit and retrive sub count"""
-
-    # Redit endpoint for gathering subreddit info
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-
-    # Custom agent
-    headers = {'User-Agent': 'My user Agent 1.0'}
-
-    # get Request sent to api
-    response = requests.get(url, headers=headers, allow_redirects=False)
-
-    # Redirect if request not successful
+    """
+    Function to query reddit
+    """
+    url = 'https://www.reddit.com'
+    header = {
+        'Accept': 'application/json',
+        'User-Agent':'My user Agent 1.0'
+    }
+    response = requests.get('{}/r/{}/about/.json'.format(url, subreddit),
+                            headers=header,
+                            allow_redirects=False
+                            )
     if response.status_code == 200:
-        data = response.json().get('data', {})
-        sub_count = data.get('subscribers', 0)
-        return sub_count
-    else:
-        return 0
+        return response.json()['data']['subscribers']
+    return 0
