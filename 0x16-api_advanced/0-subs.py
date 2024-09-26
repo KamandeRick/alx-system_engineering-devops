@@ -1,20 +1,19 @@
 #!/usr/bin/python3
-"""
-Module to query reddit for sub count in a sub reddit
-"""
+"""Module to querry reddit for subreddit sub count """
+
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """
-    Function to query reddit
-    """
-    url = 'https://www.reddit.com'
-    header = {
-        'Accept': 'application/json',
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-    }
-    response = requests.get('{}/r/{}/about/.json'.format(url, subreddit),
-                            headers=header,
-                            allow_redirects=False
-                            )
+    """function to query a subreddit and return its sub count"""
+
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-Agent': 'My user Agent 1.0'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    if response.status_code == 200:
+        data = response.json().get('data', {})
+        sub_count = data.get('subscribers', 0)
+        return sub_count
+    else:
+        return 0
