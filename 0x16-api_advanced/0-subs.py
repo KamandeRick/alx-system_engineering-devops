@@ -1,37 +1,27 @@
 #!/usr/bin/python3
-"""
-Module Docs
-"""
+"""Querrying reddit subs"""
+
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """
-    Function Docs
-    """
-    # Set up the URL for the Reddit API
+    """query a subreddit to get number of subscribers"""
+
+    # Reddit API endpoint for getting subreddit informatiom
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    
-    # Set a custom User-Agent to avoid Too Many Requests errors
-    headers = {
-        #'User-Agent': 'CustomScript/1.0 (by /u/YourRedditUsername)'
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-    }
-    
-    try:
-        # Make a GET request to the Reddit API
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse the JSON response
-            data = response.json()
-            # Return the number of subscribers
-            return data['data']['subscribers']
-        else:
-            # If the subreddit is not found or any other error occurs, return 0
-            return 0
-    except requests.RequestException:
-        # If there's any exception during the request, return 0
+
+    # Set a custom User-Agent to avoid too many requests error
+    headers = {'User-Agent': 'My user Agent 1.0'}
+
+    # send a GET request to the Reddit API
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    # Chek if the request was successful and not redirect
+    if response.status_code == 200:
+        # parse JSON response to extract no of subscribers
+        data = response.json().get('data', {})
+        sub_count = data.get('subscribers', 0)
+        return sub_count
+    else:
         return 0
+
